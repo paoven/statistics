@@ -23,8 +23,6 @@ class TransactionController {
     @Value("${transaction.age.max.seconds}")
     private long maxTransactionAgeInSeconds;
     
-    
-    
     @RequestMapping(method = RequestMethod.POST, path = "/transactions",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity recordTransaction(@Valid @RequestBody TransactionRecordRequest transaction){
         if(!isTransactionOutdated(transaction.getTimestamp())){

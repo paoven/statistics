@@ -1,24 +1,24 @@
-
 package com.example.statistics.controllers;
 
-import javax.validation.constraints.Min;
+import java.math.BigDecimal;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
-
+import javax.validation.constraints.Positive;
 
 public class TransactionRecordRequest {
 
     public TransactionRecordRequest() {
     }
- 
-    @NotNull
-    @Min(0)
-    private double amount;
-    
-    @NotNull
-    @Min(0)
-    private long timestamp;
 
-    public void setAmount(double amount) {
+    @NotNull
+    @DecimalMin(value = "0.0", inclusive = false)
+    private BigDecimal amount;
+
+    @NotNull
+    @Positive
+    private long timestamp; // TODO: extend timestamp validation in order to reject in the future timestamps.
+
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
@@ -27,11 +27,11 @@ public class TransactionRecordRequest {
     }
 
     public double getAmount() {
-        return amount;
+        return amount.doubleValue();
     }
 
     public long getTimestamp() {
         return timestamp;
     }
-    
+
 }

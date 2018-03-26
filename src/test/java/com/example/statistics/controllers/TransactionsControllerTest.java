@@ -60,7 +60,7 @@ public class TransactionsControllerTest {
                 .andDo(print())
                 .andExpect(status().isCreated());
     }
-    
+
     @Test
     public void transactionAgedMoreThan60secondsInThePastYields204() throws Exception {
         final long currentTimestamp = 1478192204000l;
@@ -77,6 +77,38 @@ public class TransactionsControllerTest {
         this.mockMvc.perform(post("/transactions").contentType(MediaType.APPLICATION_JSON).content(validTransactionRequest))
                 .andDo(print())
                 .andExpect(status().isNoContent());
+    }
+
+    @Test
+    public void testAmountFieldIsRequired() throws Exception {
+        final long exampleTimestamp = 1478192204000l;
+
+        given(clockMock.instant())
+                .willReturn(Clock.fixed(Instant.ofEpochMilli(exampleTimestamp), ZoneId.systemDefault()).instant());
+
+        final String validTransactionRequest = String.format("{\n"
+                + "\"timestamp\": %s\n"
+                + "}", exampleTimestamp);
+
+        this.mockMvc.perform(post("/transactions").contentType(MediaType.APPLICATION_JSON).content(validTransactionRequest))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testTimestampFieldIsRequired() throws Exception {
+        final long exampleTimestamp = 1478192204000l;
+
+        given(clockMock.instant())
+                .willReturn(Clock.fixed(Instant.ofEpochMilli(exampleTimestamp), ZoneId.systemDefault()).instant());
+
+        final String validTransactionRequest = String.format("{\n"
+                + "\"amount\": 12.3\n"
+                + "}", exampleTimestamp);
+
+        this.mockMvc.perform(post("/transactions").contentType(MediaType.APPLICATION_JSON).content(validTransactionRequest))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
     }
 
 }
