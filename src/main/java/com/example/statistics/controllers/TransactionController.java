@@ -30,7 +30,7 @@ class TransactionController {
         if(!isTransactionOutdated(transaction.getTimestamp())){
           return ResponseEntity.status(HttpStatus.CREATED).build();
         }
-        throw new UnsupportedOperationException("To be implemented");
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
     
     private boolean isTransactionOutdated(long transactionTimeStamp){
