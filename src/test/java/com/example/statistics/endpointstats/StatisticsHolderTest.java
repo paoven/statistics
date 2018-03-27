@@ -14,11 +14,11 @@ import org.junit.Test;
 
 public class StatisticsHolderTest {
 
-    public StatisticsHolder instance;
+    public StatisticsHolderImpl instance;
 
     @Before
     public void init() {
-        instance = new StatisticsHolder();
+        instance = new StatisticsHolderImpl();
     }
 
     @Test

@@ -1,5 +1,6 @@
 package com.example.statistics.controllers;
 
+import com.example.statistics.endpointstats.StatisticsHolder;
 import java.time.Clock;
 import java.time.Instant;
 import javax.validation.Valid;
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 class TransactionController {
     
     @Autowired
-    public Clock clock;
+    private Clock clock;
+    @Autowired
+    private StatisticsHolder statisticsHolder;
     
     @Value("${transaction.age.max.seconds}")
     private long maxTransactionAgeInSeconds;
@@ -26,6 +29,7 @@ class TransactionController {
     @RequestMapping(method = RequestMethod.POST, path = "/transactions",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity recordTransaction(@Valid @RequestBody TransactionRecordRequest transaction){
         if(!isTransactionOutdated(transaction.getTimestamp())){
+          statisticsHolder.merge(transaction.getAmount());
           return ResponseEntity.status(HttpStatus.CREATED).build();
         }
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
