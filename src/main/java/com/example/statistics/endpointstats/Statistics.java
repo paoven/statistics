@@ -39,10 +39,18 @@ public class Statistics {
         max = Math.max(max, toBeAccumulated.sum);
         min = Math.min(min, toBeAccumulated.sum);
     }
+    
+    void reset() {
+        count=0;
+        sum = 0.0d;
+        max = Double.MIN_VALUE;
+        min = Double.MAX_VALUE;
+    }
 
     @Override
     public String toString() {
         return "Statistics{" + "sum=" + sum + ", max=" + max + ", min=" + min + ", count=" + count + '}';
     }
+
 
 }

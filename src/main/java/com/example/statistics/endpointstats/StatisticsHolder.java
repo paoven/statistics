@@ -22,4 +22,11 @@ public class StatisticsHolder {
         });
     }
 
+    public void reset() {
+          hashMap.merge(STATS_KEY, Statistics.of(0.0d), (holder,toBeMerged) -> {
+             holder.reset();
+             return holder;
+        });
+    }
+
 }
