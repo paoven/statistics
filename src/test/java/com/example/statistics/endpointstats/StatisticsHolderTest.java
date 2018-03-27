@@ -26,8 +26,8 @@ public class StatisticsHolderTest {
         final Statistics statistics = instance.getStatistics();
         assertEquals(0.0d, statistics.getSum(), 0.0d);
         assertEquals(0.0d, statistics.getAvg(), 0.0d);
-        assertEquals(Double.MIN_VALUE, statistics.getMax(), 0.0d);
-        assertEquals(Double.MAX_VALUE, statistics.getMin(), 0.0d);
+        assertEquals(0.0d, statistics.getMax(), 0.0d);
+        assertEquals(0.0d, statistics.getMin(), 0.0d);
         assertEquals(0.0d, statistics.getCount(), 0l);
     }
 
@@ -51,8 +51,8 @@ public class StatisticsHolderTest {
         final Statistics statistics = instance.getStatistics();
         assertEquals(0.0d, statistics.getSum(), 0.0d);
         assertEquals(0.0d, statistics.getAvg(), 0.0d);
-        assertEquals(Double.MIN_VALUE, statistics.getMax(), 0.0d);
-        assertEquals(Double.MAX_VALUE, statistics.getMin(), 0.0d);
+        assertEquals(0.0d, statistics.getMax(), 0.0d);
+        assertEquals(0.0d, statistics.getMin(), 0.0d);
         assertEquals(0.0d, statistics.getCount(), 0l);
     }
 

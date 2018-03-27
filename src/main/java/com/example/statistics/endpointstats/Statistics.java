@@ -3,8 +3,8 @@ package com.example.statistics.endpointstats;
 public class Statistics {
 
     private double sum = 0.0d;
-    private double max = Double.MIN_VALUE;
-    private double min = Double.MAX_VALUE;
+    private double max = 0.0d;
+    private double min = 0.0d;
     private long count = 0l;
 
     static Statistics of(double amount) {
@@ -34,17 +34,17 @@ public class Statistics {
     }
 
     void accumulate(Statistics toBeAccumulated) {
-        count++;
         sum = sum + toBeAccumulated.sum;
-        max = Math.max(max, toBeAccumulated.sum);
-        min = Math.min(min, toBeAccumulated.sum);
+        max = count>0? Math.max(max, toBeAccumulated.sum) : toBeAccumulated.sum;
+        min = count>0? Math.min(min, toBeAccumulated.sum) : toBeAccumulated.sum;
+        count++;
     }
     
     void reset() {
         count=0;
         sum = 0.0d;
-        max = Double.MIN_VALUE;
-        min = Double.MAX_VALUE;
+        max = 0.0d;
+        min = 0.0d;
     }
 
     @Override

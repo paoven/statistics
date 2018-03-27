@@ -40,7 +40,7 @@ public class StatisticsControllerTest {
         this.mockMvc.perform(get("/statistics").accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().json(String.format("{'sum': 0.0, 'avg': 0.0, 'max': %s, 'min': %s, 'count': 0}",Double.MIN_VALUE,Double.MAX_VALUE),true));
+                .andExpect(content().json("{'sum': 0.0, 'avg': 0.0, 'max': 0.0, 'min': 0.0, 'count': 0}",true));
         
     }
 }
