@@ -7,6 +7,6 @@ public interface StatisticsHolder {
 
     void merge(double newAmount);
 
-    void reset();
+    public void reset();
     
 }

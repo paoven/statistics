@@ -28,7 +28,7 @@ public class StatisticsControllerTest {
 
     @MockBean
     StatisticsHolder statisticsHolderMock;
-    
+
 
     @Test
     public void canRetrieveStatistics() throws Exception {
