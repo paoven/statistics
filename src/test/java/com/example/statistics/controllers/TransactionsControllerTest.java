@@ -34,7 +34,7 @@ public class TransactionsControllerTest {
     @Test
     public void transactionWithinTheLast60SecondsYields201() throws Exception {
         final long exampleTimestamp = 1478192204000l;
-
+        
         given(clockMock.instant())
                 .willReturn(Clock.fixed(Instant.ofEpochMilli(exampleTimestamp), ZoneId.systemDefault()).instant());
 
@@ -129,7 +129,7 @@ public class TransactionsControllerTest {
                 + "}", exampleTimestamp);
 
         this.mockMvc.perform(post("/transactions").contentType(MediaType.APPLICATION_JSON).content(validTransactionRequest));
-        verify(statisticsHolderMock, times(1)).merge(12.3d);
+        verify(statisticsHolderMock, times(1)).merge(12.3d,exampleTimestamp);
 
     }
 
@@ -147,6 +147,6 @@ public class TransactionsControllerTest {
                 + "}", agedTransactionTimestamp);
 
         this.mockMvc.perform(post("/transactions").contentType(MediaType.APPLICATION_JSON).content(validTransactionRequest));
-        verify(statisticsHolderMock, times(0)).merge(12.3d);
+        verify(statisticsHolderMock, times(0)).merge(12.3d,agedTransactionTimestamp);
     }
 }

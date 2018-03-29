@@ -29,7 +29,7 @@ class TransactionController {
     @RequestMapping(method = RequestMethod.POST, path = "/transactions",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity recordTransaction(@Valid @RequestBody TransactionRecordRequest transaction){
         if(!isTransactionOutdated(transaction.getTimestamp())){
-          statisticsHolder.merge(transaction.getAmount());
+          statisticsHolder.merge(transaction.getAmount(),transaction.getTimestamp());
           return ResponseEntity.status(HttpStatus.CREATED).build();
         }
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
