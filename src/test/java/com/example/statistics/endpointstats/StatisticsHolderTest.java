@@ -43,7 +43,7 @@ public class StatisticsHolderTest {
     }
 
     @Test
-    public void canMergeNewAmountIntoStatsAndGetUpdatedStats() {
+    public void canReduceNewAmountIntoStatsAndGetUpdatedStats() {
         final double anAmount = 13.0d;
         final Instant now = Instant.now();
         instance.merge(anAmount, now.toEpochMilli());
@@ -110,14 +110,14 @@ public class StatisticsHolderTest {
     
 
     @Test
-    public void canMergeStatsInAMultithreadedEnvironment() throws InterruptedException {
+    public void canReduceStatsInAMultithreadedEnvironment() throws InterruptedException {
         final int iterations = 10000;
         final int threads = 10;
         final CountDownLatch countDown = new CountDownLatch(iterations);
 
         final ExecutorService newFixedThreadPool = Executors.newFixedThreadPool(threads);
 
-        final List<Callable<Integer>> statsMergeRequests = IntStream.rangeClosed(1, iterations).mapToObj(i -> {
+        final List<Callable<Integer>> statsReduceRequests = IntStream.rangeClosed(1, iterations).mapToObj(i -> {
 
             return (Callable<Integer>) () -> {
                 System.out.println(String.format("I'm Thread %s working on amount %s", Thread.currentThread().getName(), i));
@@ -127,7 +127,7 @@ public class StatisticsHolderTest {
             };
         }
         ).collect(Collectors.toList());
-        newFixedThreadPool.invokeAll(statsMergeRequests);
+        newFixedThreadPool.invokeAll(statsReduceRequests);
 
         try {
             countDown.await(5, TimeUnit.SECONDS);

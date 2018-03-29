@@ -32,7 +32,7 @@ public class StatisticsControllerTest {
 
     @Test
     public void canRetrieveStatistics() throws Exception {
-        final Statistics toBeReturnedStats = new Statistics();
+        final Statistics toBeReturnedStats = Statistics.zeroedStats();
         
         given(statisticsHolderMock.getStatistics())
                 .willReturn(toBeReturnedStats);
