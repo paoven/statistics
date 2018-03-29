@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Profile;
 
 @Profile(value = "StatisticsResetTest-test")
 @Configuration
-public class StatisticsResetTestConfiguration {
+public class PeriodicalStatisticsCleanupScheduleTestConfiguration {
     
     @Bean
     @Primary

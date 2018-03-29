@@ -29,7 +29,7 @@ public class StatisticsHolderTest {
 
     @Before
     public void init() {
-        instance = new StatisticsHolderImpl(60);
+        instance = new StatisticsHolderImpl(60,clockMock);
     }
 
     @Test
@@ -59,7 +59,7 @@ public class StatisticsHolderTest {
     public void canGetStatsOfLatestNSeconds() {
         final int retentionSeconds = 3;
         final int statsPerQuantum = 1;
-        instance = new StatisticsHolderImpl(retentionSeconds);
+        instance = new StatisticsHolderImpl(retentionSeconds,clockMock);
 
         final long now = 1478192204112l;
         given(clockMock.instant())
@@ -84,7 +84,7 @@ public class StatisticsHolderTest {
     public void canGetStatsEvenIfOnlyAQuantumIsPopulated() {
         final int retentionSeconds = 3;
         final int statsPerQuantum = 1;
-        instance = new StatisticsHolderImpl(60);
+        instance = new StatisticsHolderImpl(60,clockMock);
 
         final long now = 1478192204112l;
         given(clockMock.instant())

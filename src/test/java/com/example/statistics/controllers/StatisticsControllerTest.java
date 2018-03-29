@@ -1,4 +1,3 @@
-
 package com.example.statistics.controllers;
 
 import com.example.statistics.endpointstats.Statistics;
@@ -25,22 +24,20 @@ public class StatisticsControllerTest {
     private MockMvc mockMvc;
     @Autowired
     ObjectMapper objectMapper;
-
     @MockBean
     StatisticsHolder statisticsHolderMock;
-
 
     @Test
     public void canRetrieveStatistics() throws Exception {
         final Statistics toBeReturnedStats = Statistics.zeroedStats();
-        
+
         given(statisticsHolderMock.getStatistics())
                 .willReturn(toBeReturnedStats);
 
         this.mockMvc.perform(get("/statistics").accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().json("{'sum': 0.0, 'avg': 0.0, 'max': 0.0, 'min': 0.0, 'count': 0}",true));
-        
+                .andExpect(content().json("{'sum': 0.0, 'avg': 0.0, 'max': 0.0, 'min': 0.0, 'count': 0}", true));
+
     }
 }
