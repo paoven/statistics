@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class StatisticsHolderImpl implements StatisticsHolder {
 
+    private final static Integer PARALLELISM = Math.max(1, Runtime.getRuntime().availableProcessors()-1);
     private final ConcurrentHashMap<Integer, Statistics> hashMap;
 
     public StatisticsHolderImpl(@Value("${transaction.age.max.seconds}") int retentionInSeconds) {
@@ -19,7 +20,7 @@ public class StatisticsHolderImpl implements StatisticsHolder {
 
     @Override
     public Statistics getStatistics() {
-        final Statistics reducedStats = hashMap.<Statistics>reduce(4,
+        final Statistics reducedStats = hashMap.<Statistics>reduce(PARALLELISM,
                 (Integer t, Statistics quantumStat) -> {
                     try {
                         return quantumStat.clone();
