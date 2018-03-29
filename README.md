@@ -20,6 +20,16 @@ mvn clean install
 java -jar target/statistics-0.0.1-SNAPSHOT.jar
 ```
 
+### API usage example with a Linux shell
+See statistics
+```
+watch -n 1 "curl 127.0.0.1:8080/statistics" 
+```
+POST some transaction
+```
+for i in {1..10000};  do curl -H "Content-Type:application/json" -d "{\"amount\": 1.0, \"timestamp\": `date +%s`000 }" "http://127.0.0.1:8080/transactions"; done
+```
+
 ### Endpoints 
 
 #### POST /transactions
